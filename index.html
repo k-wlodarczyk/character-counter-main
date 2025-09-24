@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Character counter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav class="nav">
+        <section class="nav-logo-section">
+          <img
+            src="./design/assets/images/logo-light-theme.svg"
+            alt="Logo of Character Counter"
+          />
+        </section>
+        <section class="nav-mode-section">
+          <img
+            src="./design/assets/images/icon-moon.svg"
+            alt="Moon icon for
+          activating dark mode"
+            class="nav-mode-icon"
+          />
+        </section>
+      </nav>
+      <header class="header">
+        <h1 class="main-heading">Analyze your text in real-time.</h1>
+      </header>
+      <section class="text-area-section">
+        <textarea
+          name="text-area"
+          id="text-area"
+          class="text-area"
+          placeholder="Start typing here... (or paste your text)"
+        ></textarea>
+        <section class="text-area-details-config">
+          <div class="text-area-details-config-option">
+            <input
+              type="checkbox"
+              id="checkbox-exclude-spaces"
+              name="checkbox-exclude-spaces"
+              class="checkbox-option"
+            />
+            <label for="checkbox-exclude-spaces">Exclude spaces</label>
+          </div>
+          <div class="text-area-details-config-set-limit-div">
+            <div class="text-area-details-config-option">
+              <input
+                type="checkbox"
+                id="checkbox-set-limit"
+                name="checkbox-set-limit"
+                class="checkbox-option"
+              />
+              <label for="checkbox-set-limit">Set character limit</label>
+            </div>
+            <input
+              type="text"
+              name="character-limit-field"
+              id="character-limit-field"
+              class="character-limit-field"
+              placeholder="0"
+            />
+          </div>
+          <p class="approximate-reading-paragraph">
+            Approx. reading time: 0 minute
+          </p>
+        </section>
+      </section>
+      <section class="data-counting-blocks">
+        <div class="data-counting-block total-characters-block">
+          <p id="total-chars-counter" class="counting-header">00</p>
+          <p class="counting-description">Total Characters</p>
+          <img
+            src="./design/assets/images/pattern-character-count.svg"
+            class="counting-block-pattern"
+          />
+        </div>
+        <div class="data-counting-block word-count-block">
+          <p class="counting-header">00</p>
+          <p class="counting-description">Word Count</p>
+          <img
+            src="./design/assets/images/pattern-word-count.svg"
+            class="counting-block-pattern"
+          />
+        </div>
+        <div class="data-counting-block sentence-count-block">
+          <p class="counting-header">00</p>
+          <p class="counting-description">Sentence Count</p>
+          <img
+            src="./design/assets/images/pattern-sentence-count.svg"
+            class="counting-block-pattern"
+          />
+        </div>
+      </section>
+      <section class="letter-density-section">
+        <h2 class="secondary-heading">Letter Density</h2>
+        <p class="empty-density-paragraph">
+          No characters found. Start typing to see letter density.
+        </p>
+      </section>
+    </div>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+[
+  {
+    "area": "Default values",
+    "name": "Default values on page load",
+    "steps": ["Step 1: Open the application"],
+    "expected": "Input text area is empty, checkboxes are unchecked, values of Total characters, Word count and Sentence count are 00. Letter density is empty."
+  },
+  {
+    "area": "Input text area",
+    "name": "Typing text inside the input text area",
+    "steps": [
+      "Step 1: Set mouse over the input text area",
+      "Step 2: Click inside the input text area",
+      "Step 3: Type text \"Hello World! This is a test.\""
+    ],
+    "expected": "After step 1: cursor becomes a click pointer. After step 2: border color of the input text area changes to purple. Before step 3: Placeholder is still visible. After step 3: Placeholder disappears, typed text appears inside the input text area."
+  }
+]

@@ -261,3 +261,27 @@ html {
   line-height: var(--text-preset-4-line-height);
   letter-spacing: var(--text-preset-4-letter-spacing);
 }
+
+.media-links {
+  margin: var(--spacing-600);
+  display: flex;
+  justify-content: space-around;
+}
+
+.media-link:link,
+.media-link:visited {
+  background-color: var(--purple-400);
+  padding: var(--spacing-150) var(--spacing-400);
+  text-decoration: none;
+  font-size: var(--text-preset-3-size);
+  line-height: var(--text-preset-3-line-height);
+  letter-spacing: var(--text-preset-3-letter-spacing);
+  font-weight: 600;
+  border-radius: var(--radius-12);
+  transition: 0.3s ease all;
+}
+
+.media-link:hover,
+.media-link:active {
+  background-color: var(--purple-500);
+}

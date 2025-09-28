@@ -14,5 +14,220 @@
       "Step 3: Type text \"Hello World! This is a test.\""
     ],
     "expected": "After step 1: cursor becomes a click pointer. After step 2: border color of the input text area changes to purple. Before step 3: Placeholder is still visible. After step 3: Placeholder disappears, typed text appears inside the input text area."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "Total characters are updating on typing text",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc def\""
+    ],
+    "expected": "After typing text, Total characters counter shows 07. Counter updates in real-time as user types. Spaces are also counted."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "Total characters are updating on deleting text",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc def\"",
+      "Step 3: Delete the text by deleting letters one by one",
+      "Step 4: Repeat step 2",
+      "Step 5: Mark all text and delete"
+    ],
+    "expected": "Counter updates in real-time as user deletes text. After step 3 and 5: Total characters counter shows 00."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "All kinds of characters are counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc DEF 123 !@#\""
+    ],
+    "expected": "After typing text, Total characters counter shows 15. All kinds of characters including uppercase, lowercase, numbers, special characters and spaces are counted."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "Pasting text updates the counter",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Copy text \"Pasting text updates the counter\" to clipboard",
+      "Step 3: Paste the text inside the input text area"
+    ],
+    "expected": "After step 3: Total characters counter shows 32. Counter updates in real-time as user pastes text."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "Leading and trailing spaces are counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \" abc \""
+    ],
+    "expected": "After typing text, Total characters counter shows 05. Leading and trailing spaces are counted."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "Multiple consecutive spaces are counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"a  b  &nbsp  c\""
+    ],
+    "expected": "After typing text, Total characters counter shows 07. Multiple consecutive spaces are counted."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "Total characters counter shows leading 0 only if value is less than 10",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abcdefghi\"",
+      "Step 3: Add one more character to make it 10 characters",
+      "Step 4: Delete last character to make it 9 characters again"
+    ],
+    "expected": "After step 2: Total characters counter shows 09 with leading 0. After step 3: Total characters counter shows 10 without leading 0. After decreasing back to 9 characters in step 4: Total characters counter shows 09 with leading 0 again."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
+    "name": "New line is counted as a character",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc{enter}def\""
+    ],
+    "expected": "After typing text, Total characters counter shows 07. New line is counted as a character."
+  },
+  {
+    "area": "Total characters - exclude spaces checked",
+    "name": "Total characters header has \"(no space)\" addition",
+    "steps": [
+      "Step 1: Check the checkbox 'Exclude spaces'",
+      "Step 2: Uncheck the checkbox 'Exclude spaces'"
+    ],
+    "expected": "After step 1: Total characters header changes from 'Total characters' to 'Total characters (no space)'. After step 2: Total characters header changes back to 'Total characters'."
+  },
+  {
+    "area": "Total characters - exclude spaces checked",
+    "name": "Leading, inner and trailing spaces are not counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Check the checkbox 'Exclude spaces'",
+      "Step 3: Type text \" abc def \""
+    ],
+    "expected": "After typing text, Total characters counter shows 06. Leading, inner and trailing spaces are not counted."
+  },
+  {
+    "area": "Total characters - exclude spaces checked",
+    "name": "Total characters are updating after checking and unchecking the checkbox",
+    "steps": [
+      "Step 1: Check the checkbox 'Exclude spaces'",
+      "Step 2: Click inside the input text area",
+      "Step 3: Type text \"abc def\"",
+      "Step 4: Uncheck the checkbox 'Exclude spaces'",
+      "Step 5: Check the checkbox again"
+    ],
+    "expected": "After step 3: Total characters counter shows 06. Changing the checkbox updates the counter immediately. After step 4: Total characters counter shows 07. After step 5: Total characters counter shows 06 again."
+  },
+  {
+    "area": "Total characters - exclude spaces checked",
+    "name": "All kinds of characters are counted except spaces",
+    "steps": [
+      "Step 1: Check the checkbox 'Exclude spaces'",
+      "Step 2: Click inside the input text area",
+      "Step 3: Type text \"abc DEF 123 !@#\""
+    ],
+    "expected": "After typing text, Total characters counter shows 13. All kinds of characters except spaces are counted."
+  },
+  {
+    "area": "Word count",
+    "name": "Word count is updating on typing and deleting text",
+    "steps": [
+      "Step 1: Click inside the input area",
+      "Step 2: Type text: \"Hello World\"",
+      "Step 3: Clear whole text"
+    ],
+    "expected": "After step 2: Word count shows 02. After step 3: Word count shows 00."
+  },
+  {
+    "area": "Word count",
+    "name": "Letters, numbers, asterisks, underscores and polish characters are part of words",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc ABC 123 ąęść ĄĘŚĆ te_xt te*xt 1a two-words word1.word2\""
+    ],
+    "expected": "After typing text, Word count shows 12. All of these parts (separated by spaces) are counted as words except \"two-words\" which is counted as two separate words."
+  },
+  {
+    "area": "Word count",
+    "name": "Word count counter shows leading 0 only if value is less than 10",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text with 9 words",
+      "Step 3: Add one more word to make it 10 words",
+      "Step 4: Delete last word to make it 9 words again"
+    ],
+    "expected": "After step 2: Word count shows 09 with leading 0. After step 3: Word count shows 10 without leading 0. After decreasing back to 9 words in step 4: Word count shows 09 with leading 0 again."
+  },
+  {
+    "area": "Word count",
+    "name": "Pasting text updates the word count",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Copy text \"Pasting text updates the word count\" to clipboard",
+      "Step 3: Paste the text inside the input text area"
+    ],
+    "expected": "After step 3: Word count shows 06. Counter updates in real-time as user pastes text."
+  },
+  {
+    "area": "Word count",
+    "name": "Separators are not counted as words",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"&nbsp ,.!?;:-()[]{}<>/\\|\""
+    ],
+    "expected": "After typing text, Word count shows 00. Separators are not counted as words."
+  },
+  {
+    "area": "Word count",
+    "name": "Multiple consecutive spaces do not create empty words",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"a  b &nbsp&nbspc\""
+    ],
+    "expected": "After typing text, Word count shows 03. Multiple consecutive spaces do not create empty words."
+  },
+  {
+    "area": "Word count",
+    "name": "Leading and trailing spaces do not create empty words",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \" abc def \""
+    ],
+    "expected": "After typing text, Word count shows 02. Leading and trailing spaces do not create empty words."
+  },
+  {
+    "area": "Word count",
+    "name": "Underscores are part of words",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"_abc_ _def_ _\""
+    ],
+    "expected": "After typing text, Word count shows 03: '_abc_', '_def_' and '_' are counted as words."
+  },
+  {
+    "area": "Word count",
+    "name": "New line is a separator for words",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc {enter} def\""
+    ],
+    "expected": "After typing text, Word count shows 02. New line is a separator for words."
+  },
+  {
+    "area": "Word count",
+    "name": "Checkbox 'exclude spaces' does not affect word count",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc def\"",
+      "Step 3: Check the checkbox 'Exclude spaces'",
+      "Step 4: Uncheck the checkbox 'Exclude spaces'"
+    ],
+    "expected": "After step 2: Word count shows 02. After step 3 and 4: Word count remains 02. Checkbox 'exclude spaces' does not affect word count."
   }
 ]

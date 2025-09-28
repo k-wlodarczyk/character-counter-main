@@ -231,18 +231,22 @@ html {
   line-height: var(--text-preset-1-line-height);
   letter-spacing: var(--text-preset-1-letter-spacing);
   font-weight: 600;
+  white-space-collapse: collapse;
 }
 
 .counting-description {
+  position: relative;
   font-size: var(--text-preset-3-size);
   line-height: var(--text-preset-3-line-height);
   letter-spacing: var(--text-preset-3-letter-spacing);
+  z-index: 900;
 }
 
 .counting-block-pattern {
   position: absolute;
   bottom: 0;
   right: -10%;
+  z-index: 100;
 }
 
 .letter-density-section {

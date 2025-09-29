@@ -14,26 +14,43 @@ const totalCharsDescription = document.querySelector(
   "#total-chars-description"
 );
 const wordsCounter = document.querySelector("#words-counter");
+const sentencesCounter = document.querySelector("#sentences-counter");
 
-const printCountedValue = function (element, value) {
+const printCountedValues = function (chars, words, sentences) {
+  printValue(totalCharsCounter, chars);
+  printValue(wordsCounter, words);
+  printValue(sentencesCounter, sentences);
+};
+
+const printValue = function (element, value) {
   element.textContent = value >= 10 ? value : "0" + value;
 };
 
-const countCharacters = function () {
-  let text = textArea.value;
+const countCharacters = function (text) {
   if (checkboxExcludeSpaces.checked) {
     text = text.replace(/ /g, "");
   }
-  totalCharsCounter.textContent = text.length;
-  printCountedValue(totalCharsCounter, text.length);
+
+  return text.length;
 };
 
-const countWords = function () {
-  let text = textArea.value;
+const countWords = function (text) {
   const regex = /(?=[\wĄąĆćĘęŁłŃńÓóŚśŹźŻż])[\wĄąĆćĘęŁłŃńÓóŚśŹźŻż*]+/gu;
   const wordCounter = (text.match(regex) || []).length;
-  console.log("Words: ", wordCounter);
-  printCountedValue(wordsCounter, wordCounter);
+  return wordCounter;
+};
+
+const countSentences = function (text) {
+  text += "."; // if last sentence is not ended with dot
+  const regex = /[^.!?…]+(?:\.\.\.|…|[.!?])/g;
+  const parts = text.match(regex) || [];
+  let sentencesCounter = parts.length;
+
+  for (const part of parts) {
+    if (!countWords(part)) sentencesCounter--;
+  }
+  // console.log(sentencesCounter);
+  return sentencesCounter;
 };
 
 const updateTotalCharsDescription = function () {
@@ -49,11 +66,13 @@ checkboxSetLimit.addEventListener("change", function () {
 });
 
 checkboxExcludeSpaces.addEventListener("change", function () {
-  countCharacters();
+  printValue(totalCharsCounter, countCharacters(textArea.value));
   updateTotalCharsDescription();
 });
 
 textArea.addEventListener("input", function () {
-  countCharacters();
-  countWords();
+  let countedChars = countCharacters(textArea.value);
+  let countedWords = countWords(textArea.value);
+  let countedSentences = countSentences(textArea.value);
+  printCountedValues(countedChars, countedWords, countedSentences);
 });

@@ -23,3 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("checkSentencesCounter", (text, counterValue) => {
+  cy.get(`[data-cy="text-area"]`).type(text);
+  cy.get(`[data-cy="sentences-counter"]`).should("have.text", counterValue);
+});

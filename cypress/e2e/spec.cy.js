@@ -159,3 +159,55 @@ describe("Word count", () => {
     getElement("words-counter").should("have.text", "02");
   });
 });
+
+describe("Sentence count", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("Sentence count is updating on typing and deleting text", () => {
+    cy.checkSentencesCounter("Hello World. This is a test.", "02");
+    getElement("text-area").clear();
+    getElement("sentences-counter").should("have.text", "00");
+  });
+
+  it("Sentences are separated by characters: . > ? ...", () => {
+    cy.checkSentencesCounter(
+      "This is sentence one. This is sentence two! Is this sentence three? This is not the end... Or is it",
+      "05"
+    );
+  });
+
+  it("Sentence counter shows leading 0 only if value is less than 10", () => {
+    cy.checkSentencesCounter("1. 2. 3. 4. 5. 6. 7. 8. 9.", "09");
+    cy.checkSentencesCounter("10.", "10");
+    cy.checkSentencesCounter("{backspace}{backspace}{backspace}", "09");
+  });
+
+  it("Sentence is counted only if has at least one word", () => {
+    cy.checkSentencesCounter(
+      'Sentence 1. ! Sentence 2?Sentence 3... Sentence 4# and still sentence 4".. . ?()sentence 5.',
+      "05"
+    );
+  });
+
+  it("Last sentence does not need to end with a separator to be counted", () => {
+    cy.checkSentencesCounter(
+      "This is sentence one. This is sentence two! This is sentence three",
+      "03"
+    );
+    getElement("text-area").clear();
+    cy.checkSentencesCounter("This is sentence one", "01");
+  });
+
+  it("Sentence can have multiple lines", () => {
+    cy.checkSentencesCounter(
+      "This is sentence one{enter}still sentence one.{enter}This is sentence two.",
+      "02"
+    );
+  });
+
+  it("Sentence does not need to have letters to be counted", () => {
+    cy.checkSentencesCounter("12345! _. Ąć1#? (){}[]", "03");
+  });
+});

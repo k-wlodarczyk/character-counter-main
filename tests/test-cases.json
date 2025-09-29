@@ -229,5 +229,73 @@
       "Step 4: Uncheck the checkbox 'Exclude spaces'"
     ],
     "expected": "After step 2: Word count shows 02. After step 3 and 4: Word count remains 02. Checkbox 'exclude spaces' does not affect word count."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Sentence count is updating on typing and deleting text",
+    "steps": [
+      "Step 1: Click inside the input area",
+      "Step 2: Type text: \"Hello World. This is a test.\"",
+      "Step 3: Clear whole text"
+    ],
+    "expected": "After step 2: Sentence count shows 02. After step 3: Sentence count shows 00."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Sentences are separated by characters: . ! ? ...",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"This is sentence one. This is sentence two! Is this sentence three? This is not the end... Or is it\""
+    ],
+    "expected": "After typing text, Sentence count shows 05. Sentences (without separator): 'This is sentence one',&nbsp;&nbsp; 'This is sentence two',&nbsp;&nbsp; 'Is this sentence three',&nbsp;&nbsp; 'This is not the end' &nbsp;&nbsp; 'Or is it'."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Sentence count counter shows leading 0 only if value is less than 10",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text with 9 sentences (e.g. \"1. 2. 3. 4. 5. 6. 7. 8. 9.\")",
+      "Step 3: Add one more sentence to make it 10 sentences",
+      "Step 4: Delete last sentence to make it 9 sentences again"
+    ],
+    "expected": "After step 2: Sentence count shows 09 with leading 0. After step 3: Sentence count shows 10 without leading 0. After decreasing back to 9 sentences in step 4: Sentence count shows 09 with leading 0 again."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Sentence is counted only if it has at least one word",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"Sentence 1. ! Sentence 2?Sentence 3... Sentence 4# and still sentence 4\".. . ?()sentence 5\"."
+    ],
+    "expected": "After typing text, Sentence count shows 05. Sentences without words (like '!', '...') are not counted."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Last sentence does not need to end with a separator to be counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"This is sentence one. This is sentence two! This is sentence three\"",
+      "Step 3: Clear whole text",
+      "Step 4: Type text \"This is sentence one\""
+    ],
+    "expected": "After step 2: Sentence count shows 03. After step 4: Sentence count shows 01."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Sentence can have multiple lines",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"This is sentence one{enter}still sentence one.{enter}This is sentence two.\""
+    ],
+    "expected": "After typing text, Sentence count shows 02."
+  },
+  {
+    "area": "Sentence count",
+    "name": "Sentence does not need to have letters to be counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"12345! _. Ąć1#? (){}[]\""
+    ],
+    "expected": "After typing text, Sentence count shows 02.<br />Sentences: '12345',&nbsp;&nbsp; '_' &nbsp;&nbsp; 'Ąć1#'."
   }
 ]

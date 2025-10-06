@@ -297,5 +297,95 @@
       "Step 2: Type text \"12345! _. Ąć1#? (){}[]\""
     ],
     "expected": "After typing text, Sentence count shows 02.<br />Sentences: '12345',&nbsp;&nbsp; '_' &nbsp;&nbsp; 'Ąć1#'."
+  },
+  {
+    "area": "Letter density",
+    "name": "Letter density appears after typing letters",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"12345! _\"",
+      "Step 3: Add letter \"a\" to the text"
+    ],
+    "expected": "After step 2 Letter density is still empty. After step 3, Letter density shows:<br />A: 1 (100.00%)"
+  },
+  {
+    "area": "Letter density",
+    "name": "After letter density appears, message 'No characters found. Start typing to see letter density.' disappears",
+    "steps": [
+      "Step 1: Make text area empty",
+      "Step 2: Type text \"a\"",
+      "Step 3: Clear text area"
+    ],
+    "expected": "After step 1: Letter density shows message 'No characters found. Start typing to see letter density.'. After step 2: Letter density shows:<br />A: 1 (100.00%) and message disappears. After step 3: Letter density shows message 'No characters found. Start typing to see letter density.' again."
+  },
+  {
+    "area": "Letter density",
+    "name": "Density shows letter (left side of progress bar), number of occurrences and percentage (right side of progress bar)",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aabb\""
+    ],
+    "expected": "After typing text, Letter density shows:<br />A: 2 (50,00%)<br />B: 2 (50.00%)<br />On the left side of a progress bar is the letter, on the right side is number of occurrences and percentage of density in whole text."
+  },
+  {
+    "area": "Letter density",
+    "name": "Letter density includes only letters",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abaA 1_23 !@#.\""
+    ],
+    "expected": "Letter density counts only letters (case insensitive). After typing text, Letter density shows:<br />A: 3 (75,00%)<br />B: 1 (25.00%)"
+  },
+  {
+    "area": "Letter density",
+    "name": "Letter density is case insensitive",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aA Bb\""
+    ],
+    "expected": "After typing text, Letter density shows:<br />A: 2 (50.00%)<br />B: 2 (50.00%)"
+  },
+  {
+    "area": "Letter density",
+    "name": "Letter density is sorted by number of occurrences (descending). If two letters have the same number of occurrences, first is the one that appeared first in the text",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"CCbAa\"",
+      "Step 3: Add letter: \"A\" to the text",
+      "Step 4: Add letter: \"C\" to the text",
+      "Step 5: Add letters: \"CA\" to the text"
+    ],
+    "expected": "After step 2, Letter density shows:<br />C: 2 (40.00%)<br />A: 2 (40.00%)<br />B: 1 (20.00%)<br />After step 3, letter density shows:<br />A: 3 (50,00%)<br />C: 2 (33.33%)<br />B: 1 (16.67%)<br />After step 4, letter density shows:<br />C: 3 (42.86%)<br />A: 3 (42.86%)<br />B: 1 (14.29%). <br />Step 5 does not change the order:<br />C: 4 (44.44%)<br />A: 4 (44.44%)<br />B: 1 (11.11%)"
+  },
+  {
+    "area": "Letter density",
+    "name": "Percentage is calculated as number of occurrences divided by total number of letters with two decimal places. Only letters are counted, other characters are ignored",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aA1 Bb_#{enter}CC?!\""
+    ],
+    "expected": "Total number of letters is 6 (a, A, B, b, C, C). After typing text, Letter density shows:<br />A: 2 (33.33%)<br />B: 2 (33.33%)<br />C: 2 (33.33%)"
+  },
+  {
+    "area": "Letter density",
+    "name": "Density for a letter is removed when there are no occurrences of that letter in the text",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aabbcc\"",
+      "Step 3: Delete all letters \"a\" from the text"
+    ],
+    "expected": "After step 2, Letter density shows:<br />A: 2 (33.33%)<br />B: 2 (33.33%)<br />C: 2 (33.33%)<br />After step 3, Letter density shows:<br />B: 2 (50.00%)<br />C: 2 (50.00%)"
+  },
+  {
+    "area": "Letter density",
+    "name": "Progress bar has width proportional to percentage value",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"ab\"",
+      "Step 3: Remove letter \"b\" from the text",
+      "Step 4: Add letters \"cccc\" to the text",
+      "Step 5: Add some more letters \"c\" to the text (about 5-10 more)"
+    ],
+    "expected": "After step 2 progress bars for A and B have the same width (50%). After step 3 progress bar for A has 100% width. After step 4 progress bar for C is longer than progress bar for A. In step 5 progress bar width for C increases with more letters C added. Progress bar is filled with the same color as total characters block background."
   }
 ]

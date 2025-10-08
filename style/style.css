@@ -82,6 +82,10 @@ html {
   font-family: var(--text-preset-family);
 }
 
+body {
+  background-color: var(--neutral-0);
+}
+
 .wrapper {
   max-width: 99rem;
   margin: 0 auto;
@@ -297,6 +301,58 @@ html {
 .progression-bar-filled {
   background-color: var(--purple-400);
   height: 100%;
+}
+
+.more-less-switch {
+  margin-top: var(--spacing-250);
+  display: none;
+}
+
+.switch-btns {
+  display: flex;
+  gap: var(--spacing-100);
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--text-preset-3-size);
+  line-height: var(--text-preset-3-line-height);
+  letter-spacing: var(--text-preset-3-letter-spacing);
+  width: fit-content;
+}
+
+.show-less .switch-btns:first-child {
+  display: none;
+}
+
+.show-less .switch-btns:last-child {
+  display: flex;
+}
+
+.show-more .switch-btns:first-child {
+  display: flex;
+}
+
+.show-more .switch-btns:last-child {
+  display: none;
+}
+
+.switch-btns-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.switch-btns:focus {
+  outline: none;
+}
+
+.full + .more-less-switch:first-child {
+  display: none;
+}
+
+.full + .more-less-switch:last-child {
+  display: block;
 }
 
 .media-links {

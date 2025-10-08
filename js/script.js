@@ -22,6 +22,9 @@ const emptyDensityParagraph = document.querySelector(
   ".empty-density-paragraph"
 );
 
+const MAX_DENSITY_OBJECTS_WITHOUT_SWITCH = 5;
+const moreLessSwitch = document.querySelector(".more-less-switch");
+
 const printCountedValues = function (chars, words, sentences) {
   printValue(totalCharsCounter, chars);
   printValue(wordsCounter, words);
@@ -128,11 +131,32 @@ const clearLetterDensity = function () {
   }
 };
 
+const renderFullDensity = function (density, densityPercentage) {
+  for (const [element, value] of Object.entries(density)) {
+    renderDensity(element, value, densityPercentage[element]);
+  }
+};
+
+const renderTopDensity = function (density, densityPercentage) {
+  let counter = 0;
+  for (const [element, value] of Object.entries(density)) {
+    if (counter === MAX_DENSITY_OBJECTS_WITHOUT_SWITCH) return;
+    renderDensity(element, value, densityPercentage[element]);
+    counter++;
+  }
+};
+
 const generateLetterDensity = function (density, densityPercentage) {
   clearLetterDensity();
 
-  for (const [element, value] of Object.entries(density)) {
-    renderDensity(element, value, densityPercentage[element]);
+  if (letterDensityArea.classList.contains("full")) {
+    renderFullDensity(density, densityPercentage);
+    moreLessSwitch.classList.add("show-less");
+    moreLessSwitch.classList.remove("show-more");
+  } else {
+    renderTopDensity(density, densityPercentage);
+    moreLessSwitch.classList.remove("show-less");
+    moreLessSwitch.classList.add("show-more");
   }
 };
 
@@ -178,6 +202,11 @@ const setDensityPercentage = function (density, sumOfChars) {
   return densityPercentage;
 };
 
+const printMoreLessSwitch = function (densityLength) {
+  moreLessSwitch.style.display =
+    densityLength > MAX_DENSITY_OBJECTS_WITHOUT_SWITCH ? "block" : "none";
+};
+
 const calculateLetterDensity = function (text) {
   const textToUpper = text.toUpperCase();
   const regex = /[\p{Letter}\p{Mark}]+/gu;
@@ -188,6 +217,8 @@ const calculateLetterDensity = function (text) {
   const sortedDensity = setSortedDensity(density);
   const densityPercentage = setDensityPercentage(sortedDensity, sumOfChars);
 
+  const densityLength = Object.keys(density).length;
+  printMoreLessSwitch(densityLength);
   generateLetterDensity(sortedDensity, densityPercentage);
 };
 
@@ -207,4 +238,13 @@ textArea.addEventListener("input", function () {
   letterDensityArea.classList.toggle("empty-density", !textArea.value);
   calculateLetterDensity(textArea.value);
   printCountedValues(countedChars, countedWords, countedSentences);
+});
+
+moreLessSwitch.addEventListener("click", function (event) {
+  const isButton = event.target.closest("button");
+  if (!isButton) {
+    return;
+  }
+  letterDensityArea.classList.toggle("full");
+  calculateLetterDensity(textArea.value);
 });

@@ -38,3 +38,8 @@ npm-debug.log*
 *.pem
 .DS_Store
 Thumbs.db
+
+#Cypress
+cypress/downloads/
+cypress/screenshots/
+cypress/videos/

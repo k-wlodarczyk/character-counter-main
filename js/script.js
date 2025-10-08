@@ -18,6 +18,9 @@ const sentencesCounter = document.querySelector("#sentences-counter");
 
 const letterDensityArea = document.querySelector(".generated-letter-density");
 const letterDensityObject = document.querySelector(".letter-density-object");
+const emptyDensityParagraph = document.querySelector(
+  ".empty-density-paragraph"
+);
 
 const printCountedValues = function (chars, words, sentences) {
   printValue(totalCharsCounter, chars);
@@ -38,7 +41,7 @@ const countCharacters = function (text) {
 };
 
 const countWords = function (text) {
-  const regex = /(?=[\wĄąĆćĘęŁłŃńÓóŚśŹźŻż])[\wĄąĆćĘęŁłŃńÓóŚśŹźŻż*]+/gu;
+  const regex = /[\p{L}\d*]+/gu;
   const wordCounter = (text.match(regex) || []).length;
   return wordCounter;
 };
@@ -66,96 +69,103 @@ const updateTotalCharsDescription = function () {
 
 const checkIfAlreadyExists = function (letter) {
   for (const child of letterDensityArea.children) {
-    // console.log(letter, child.id);
     if (child.id === letter) return true;
   }
   return false;
 };
 
-const generateWholeDensityObject = function (
-  density,
-  densityPercentage,
-  element
-) {
-  const densityObject = document.createElement("div");
+const renderLetter = function (letterDensity) {
   const letter = document.createElement("p");
   letter.classList.add("letter", "density-calculation");
-  densityObject.classList.add("generated-letter-density-object");
-  letter.textContent = element;
-  densityObject.id = element.toLowerCase();
+
+  letter.textContent = letterDensity;
+
+  return letter;
+};
+
+const renderProgressBar = function (occurenciesPercentage) {
   const progressBar = document.createElement("div");
   progressBar.classList.add("progression-bar");
   const progressBarFilled = document.createElement("div");
   progressBarFilled.classList.add("progression-bar-filled");
-  progressBarFilled.style.width = `${densityPercentage[element]}%`;
+  progressBarFilled.style.width = `${occurenciesPercentage}%`;
   progressBar.appendChild(progressBarFilled);
-  const calculatedDensity = document.createElement("p");
-  calculatedDensity.classList.add("calculated-density", "density-calculation");
-  calculatedDensity.textContent = `${density[element]} (${densityPercentage[element]}%)`;
-  densityObject.appendChild(letter);
-  densityObject.appendChild(progressBar);
-  densityObject.appendChild(calculatedDensity);
+  return progressBar;
+};
+
+const renderLetterOccurencies = function (occurencies, occurenciesPercentage) {
+  const letterOccurencies = document.createElement("p");
+  letterOccurencies.classList.add("calculated-density", "density-calculation");
+  letterOccurencies.textContent = `${occurencies} (${occurenciesPercentage}%)`;
+
+  return letterOccurencies;
+};
+
+const renderDensity = function (
+  letterDensity,
+  occurencies,
+  occurenciesPercentage
+) {
+  const densityObject = document.createElement("div");
+  densityObject.classList.add("generated-letter-density-object");
+  densityObject.id = letterDensity.toLowerCase();
+  const letter = renderLetter(letterDensity);
+  const progressBar = renderProgressBar(occurenciesPercentage);
+  const letterOccurencies = renderLetterOccurencies(
+    occurencies,
+    occurenciesPercentage
+  );
+
+  densityObject.append(letter, progressBar, letterOccurencies);
   letterDensityArea.appendChild(densityObject);
 };
 
-const updateDensityObject = function (density, densityPercentage, element) {
-  const densityObject = letterDensityArea.querySelector(
-    `#${element.toLowerCase()}`
-  );
-  const progressBarFilled = densityObject.querySelector(
-    ".progression-bar-filled"
-  );
-  progressBarFilled.style.width = `${densityPercentage[element]}%`;
-
-  const calculatedDensity = densityObject.querySelector(".calculated-density");
-  calculatedDensity.textContent = `${density[element]} (${densityPercentage[element]}%)`;
-};
-
-const deleteEmptyDensity = function (density, densityPercentage) {
-  const letters = Object.keys(density);
-  // console.log(letterDensityArea.children);
-  for (const density of letterDensityArea.children) {
-    if (!letters.includes(density.id.toUpperCase())) {
-      density.remove();
-    }
+const clearLetterDensity = function () {
+  for (const density of letterDensityArea.querySelectorAll(
+    ".generated-letter-density-object"
+  )) {
+    density.remove();
   }
 };
 
 const generateLetterDensity = function (density, densityPercentage) {
-  for (const [element, value] of Object.entries(density)) {
-    if (checkIfAlreadyExists(element.toLowerCase())) {
-      updateDensityObject(density, densityPercentage, element);
-    } else {
-      generateWholeDensityObject(density, densityPercentage, element);
-    }
-  }
+  clearLetterDensity();
 
-  deleteEmptyDensity(density, densityPercentage);
+  for (const [element, value] of Object.entries(density)) {
+    renderDensity(element, value, densityPercentage[element]);
+  }
 };
 
-const calculateLetterDensity = function (text) {
-  const textToUpper = text.toUpperCase();
+const setDensity = function (text, regex) {
+  const density = {};
   let sumOfChars = 0;
-  let density = {};
-  const densityPercentage = {};
 
-  for (const letter of textToUpper) {
-    if (!letter.match(/[\p{Letter}\p{Mark}]+/gu)) continue;
+  for (const letter of text) {
+    if (!letter.match(regex)) continue;
     density[letter] = (density[letter] || 0) + 1;
     sumOfChars++;
   }
-  // console.log(density);
 
+  return density;
+};
+
+const setSortedDensity = function (density) {
+  const sortedDensity = {};
   const lettersArray = Object.keys(density).map((key) => [key, density[key]]);
-  density = {};
 
   lettersArray.sort((a, b) => {
     return b[1] - a[1];
   });
 
   for (const [letter, value] of lettersArray) {
-    density[letter] = value;
+    sortedDensity[letter] = value;
   }
+
+  return sortedDensity;
+};
+
+const setDensityPercentage = function (density, sumOfChars) {
+  const densityPercentage = {};
 
   for (const [element, value] of Object.entries(density)) {
     const densityValue = (value / sumOfChars) * 100;
@@ -165,12 +175,20 @@ const calculateLetterDensity = function (text) {
     densityPercentage[element] = densityValueTwoDecimals;
   }
 
-  while (letterDensityArea.firstChild) {
-    letterDensityArea.removeChild(letterDensityArea.firstChild);
-  }
+  return densityPercentage;
+};
 
-  generateLetterDensity(density, densityPercentage);
-  // console.log(density, densityPercentage);
+const calculateLetterDensity = function (text) {
+  const textToUpper = text.toUpperCase();
+  const regex = /[\p{Letter}\p{Mark}]+/gu;
+  const regexFinds = text?.match(regex)?.join("");
+  const sumOfChars = regexFinds?.length;
+
+  const density = setDensity(textToUpper, regex);
+  const sortedDensity = setSortedDensity(density);
+  const densityPercentage = setDensityPercentage(sortedDensity, sumOfChars);
+
+  generateLetterDensity(sortedDensity, densityPercentage);
 };
 
 checkboxSetLimit.addEventListener("change", function () {
@@ -186,6 +204,7 @@ textArea.addEventListener("input", function () {
   const countedChars = countCharacters(textArea.value);
   const countedWords = countWords(textArea.value);
   const countedSentences = countSentences(textArea.value);
+  letterDensityArea.classList.toggle("empty-density", !textArea.value);
   calculateLetterDensity(textArea.value);
   printCountedValues(countedChars, countedWords, countedSentences);
 });

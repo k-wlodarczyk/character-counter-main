@@ -264,6 +264,10 @@ html {
   margin-top: var(--spacing-250);
 }
 
+.empty-density .empty-density-paragraph {
+  display: block;
+}
+
 .generated-letter-density {
   margin-top: var(--spacing-250);
 }

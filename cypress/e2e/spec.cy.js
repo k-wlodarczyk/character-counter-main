@@ -286,7 +286,9 @@ describe("Letter density", () => {
     cy.typeText("{moveToStart}{rightArrow}{rightArrow}{backspace}{backspace}");
     cy.densityPositions(["B", "2 (50.00%)", "C", "2 (50.00%)"]);
 
-    cy.get(".generated-letter-density").children().should("have.length", 2);
+    cy.get(".generated-letter-density")
+      .children(".generated-letter-density-object")
+      .should("have.length", 2);
   });
 
   it("Progress bar has width proportional to percentage value", () => {

@@ -99,6 +99,14 @@ body {
   justify-content: space-between;
 }
 
+.nav-logo-img:first-child {
+  display: inline;
+}
+
+.nav-logo-img:last-child {
+  display: none;
+}
+
 .nav-mode-section {
   display: flex;
   align-items: center;
@@ -107,8 +115,28 @@ body {
   width: 4.3rem;
 }
 
+.mode-switch-btn {
+  border: none;
+  background: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.mode-switch-btn:focus {
+  outline: none;
+}
+
 .nav-mode-icon {
   width: 1.8rem;
+}
+
+.nav-mode-icon:first-child {
+  display: inline;
+}
+
+.nav-mode-icon:last-child {
+  display: none;
 }
 
 /* HEADER */
@@ -150,7 +178,6 @@ body {
   align-items: center;
 }
 
-.nav-mode-section:hover,
 .text-area:hover,
 .checkbox-option:hover {
   cursor: pointer;

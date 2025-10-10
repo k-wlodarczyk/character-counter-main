@@ -1,5 +1,8 @@
 "use strict";
 
+let darkmode = localStorage.getItem("darkmode");
+const modeSwitchBtn = document.querySelector(".mode-switch-btn");
+
 const checkboxSetLimit = document.querySelector("#checkbox-set-limit");
 const checkboxExcludeSpaces = document.querySelector(
   "#checkbox-exclude-spaces"
@@ -221,6 +224,21 @@ const calculateLetterDensity = function (text) {
   printMoreLessSwitch(densityLength);
   generateLetterDensity(sortedDensity, densityPercentage);
 };
+
+const enableDarkMode = function () {
+  document.body.classList.add("darkmode");
+  localStorage.setItem("darkmode", "active");
+};
+
+const disableDarkMode = function () {
+  document.body.classList.remove("darkmode");
+  localStorage.setItem("darkmode", null);
+};
+
+modeSwitchBtn.addEventListener("click", function () {
+  darkmode = localStorage.getItem("darkmode");
+  darkmode !== "active" ? enableDarkMode() : disableDarkMode();
+});
 
 checkboxSetLimit.addEventListener("change", function () {
   setLimitDiv.classList.toggle("set-limit-checked");

@@ -1,0 +1,34 @@
+.darkmode {
+  --neutral-900: #fff;
+  --neutral-800: #f2f2f7;
+  --neutral-700: #e4e4ef;
+  --neutral-600: #404254;
+  --neutral-200: #2a2b37;
+  --neutral-100: #21222c;
+  --neutral-0: #12131a;
+}
+
+.darkmode * {
+  color: var(--neutral-800);
+}
+
+.darkmode .data-counting-block *,
+.darkmode .media-links * {
+  color: var(--neutral-100);
+}
+
+.darkmode .nav-mode-icon:last-child {
+  display: inline;
+}
+
+.darkmode .nav-mode-icon:first-child {
+  display: none;
+}
+
+.darkmode .nav-logo-img:first-child {
+  display: none;
+}
+
+.darkmode .nav-logo-img:last-child {
+  display: inline;
+}

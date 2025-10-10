@@ -19,23 +19,38 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style/style.css" />
+    <link rel="stylesheet" href="style/darkmode.css" />
   </head>
-  <body>
+  <body class="darkmode">
     <div class="wrapper">
       <nav class="nav">
         <section class="nav-logo-section">
           <img
             src="./design/assets/images/logo-light-theme.svg"
-            alt="Logo of Character Counter"
+            alt="Logo of Character Counter - light mode"
+            class="nav-logo-img"
+          />
+          <img
+            src="./design/assets/images/logo-dark-theme.svg"
+            alt="Logo of Character Counter - dark mode"
+            class="nav-logo-img"
           />
         </section>
         <section class="nav-mode-section">
-          <img
-            src="./design/assets/images/icon-moon.svg"
-            alt="Moon icon for
+          <button class="mode-switch-btn">
+            <img
+              src="./design/assets/images/icon-moon.svg"
+              alt="Moon icon for
           activating dark mode"
-            class="nav-mode-icon"
-          />
+              class="nav-mode-icon"
+            />
+            <img
+              src="./design/assets/images/icon-sun.svg"
+              alt="Sun icon for
+          activating light mode"
+              class="nav-mode-icon"
+            />
+          </button>
         </section>
       </nav>
       <header class="header">

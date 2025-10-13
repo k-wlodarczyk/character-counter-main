@@ -113,6 +113,7 @@ body {
   justify-content: center;
   background-color: var(--neutral-100);
   width: 4.3rem;
+  border-radius: var(--radius-8);
 }
 
 .mode-switch-btn {
@@ -173,20 +174,85 @@ body {
   color: inherit;
 }
 
-.text-area-details {
-  /* display: flex; */
+.text-area:focus,
+.text-area:active {
+  outline: 2px solid var(--purple-500);
+}
+.text-area-error {
+  border: 2px solid var(--orange-800);
+}
+
+.text-area-error:focus {
+  outline: 2px solid var(--orange-800);
+}
+
+.error-message {
+  display: none;
+  margin-top: var(--spacing-150);
+
+  font-size: var(--text-preset-4-size);
+  line-height: var(--text-preset-4-line-height);
+  letter-spacing: var(--text-preset-4-letter-spacing);
+}
+
+.text-area-error + .error-message {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-100);
+}
+
+.error-icon {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
+.message-content {
+  color: var(--orange-800);
+}
+
+.text-area-details {
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  /* display: inline-block; */
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--neutral-900);
+  border-radius: var(--radius-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-option:after {
+  font-family: "Font Awesome 5 Free";
+  content: "\f00c";
+  font-weight: 700;
+  font-size: 1rem;
+  display: none;
+}
+
+.checkbox-option:checked {
+  background-color: var(--purple-400);
+}
+
+.checkbox-option:checked::after {
+  display: block;
+}
+
 .text-area:hover,
-.checkbox-option:hover {
+.checkbox-option:hover,
+.text-area-details-config-option label:hover {
   cursor: pointer;
 }
 
-.text-area:focus,
+/* .text-area:focus,
 .text-area:active {
   border: 2px solid var(--purple-500);
-}
+} */
 
 .text-area-details-config {
   margin-top: var(--spacing-200);
@@ -215,6 +281,7 @@ body {
 
 .character-limit-field {
   display: none;
+  background-color: var(--neutral-0);
   text-align: center;
   width: 7rem;
   border-radius: var(--radius-6);

@@ -18,6 +18,14 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <link rel="stylesheet" href="style/style.css" />
     <link rel="stylesheet" href="style/darkmode.css" />
   </head>
@@ -64,6 +72,11 @@
           placeholder="Start typing here... (or paste your text)"
           data-cy="text-area"
         ></textarea>
+        <div class="error-message"
+          ><span class="error-icon"
+            ><img src="design/assets/images/icon-info.svg" alt="" /></span
+          ><p class="message-content" data-cy="message-content"></p
+        ></div>
         <section class="text-area-details-config">
           <div class="text-area-details-config-option">
             <input
@@ -147,12 +160,12 @@
         <h2 class="secondary-heading">Letter Density</h2>
 
         <div class="generated-letter-density empty-density">
-          <p class="empty-density-paragraph" data-cy="empty-density">
-            No characters found. Start typing to see letter density.
-          </p>
+          <p class="empty-density-paragraph" data-cy="empty-density"
+            >No characters found. Start typing to see letter density.</p
+          >
         </div>
         <div class="more-less-switch">
-          <button class="switch-btns"
+          <button class="switch-btns" data-cy="show-more"
             >Show more
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +182,7 @@
               />
             </svg>
           </button>
-          <button class="switch-btns"
+          <button class="switch-btns" data-cy="show-less"
             >Show less
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -38,6 +38,10 @@ describe("Total characters - exclude spaces unchecked", () => {
     cy.checkCharsCounter("abc DEF 123 !@#", "15");
   });
 
+  it("Polish characters are counted", () => {
+    cy.checkCharsCounter("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ", "18");
+  });
+
   it("Leading and trailing spaces are counted", () => {
     cy.checkCharsCounter(" abc ", "05");
   });
@@ -192,6 +196,93 @@ describe("Sentence count", () => {
   });
 });
 
+describe("Character limit", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("After checking checkbox 'Set character limit', additional input to set the limit appears", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").should("be.visible").and("be.empty");
+  });
+
+  it("Character limit input accepts only numbers", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("-10.,5 abc");
+    getElement("chars-limit-field").should("have.value", "105");
+  });
+
+  it("Character limit input is cleared and disappears when unchecking the checkbox", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("10");
+    getElement("checkbox-set-limit").uncheck();
+    getElement("chars-limit-field").should("not.be.visible");
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").should("be.visible").and("be.empty");
+  });
+
+  it("Exceeding the character limit shows error state in text area and error message", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("5");
+    cy.typeText("abcdef");
+    cy.shouldBeErrorMessageWithChars(5);
+  });
+
+  it("Error state is removed when text is decreased to be within the limit", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("5");
+    cy.typeText("abcdef");
+    cy.typeText("{backspace}");
+    getElement("message-content").should("not.be.visible");
+  });
+
+  it("Unchecking the checkbox removes the limit and error state", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("5");
+    cy.typeText("abcdef");
+    getElement("checkbox-set-limit").uncheck();
+    getElement("message-content").should("not.be.visible");
+  });
+
+  it("Change limit value updates the error state", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("5");
+    cy.typeText("abcdef");
+    cy.shouldBeErrorMessageWithChars(5);
+    getElement("chars-limit-field").clear().type("6");
+    getElement("message-content").should("not.be.visible");
+    getElement("chars-limit-field").clear().type("4");
+    cy.shouldBeErrorMessageWithChars(4);
+  });
+
+  it("Character limit checks limit when text is already typed", () => {
+    cy.typeText("abcdef");
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("5");
+    cy.shouldBeErrorMessageWithChars(5);
+  });
+
+  it("Character limit concerns 'Exclude spaces' checkbox state", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("6");
+    cy.typeText("abc def");
+    cy.shouldBeErrorMessageWithChars(6);
+    getElement("checkbox-exclude-spaces").check();
+    getElement("message-content").should("not.be.visible");
+    getElement("checkbox-exclude-spaces").uncheck();
+    cy.shouldBeErrorMessageWithChars(6);
+  });
+
+  it("Limit input must be a positive integer greater than zero", () => {
+    getElement("checkbox-set-limit").check();
+    getElement("chars-limit-field").type("0");
+    cy.typeText("abc");
+    getElement("message-content").should("not.be.visible");
+    getElement("chars-limit-field").clear();
+    getElement("message-content").should("not.be.visible");
+  });
+});
+
 describe("Letter density", () => {
   beforeEach(() => {
     cy.visit("/");
@@ -204,11 +295,11 @@ describe("Letter density", () => {
     cy.get(".generated-letter-density-object").should("exist");
   });
 
-  it.skip("After letter density appears, message 'No characters found. Start typing to see letter denisty' diappears", () => {
+  it("After letter density appears, message 'No characters found. Start typing to see letter denisty' diappears", () => {
     getElement("empty-density").should("be.visible");
     getElement("empty-density").should(
       "have.text",
-      "No characters found. Start typing to see letter denisty"
+      "No characters found. Start typing to see letter density."
     );
   });
 
@@ -220,6 +311,22 @@ describe("Letter density", () => {
   it("Letter density is case insensitive", () => {
     cy.typeText("aA Bb");
     cy.densityPositions(["A", "2 (50.00%)", "B", "2 (50.00%)"]);
+  });
+
+  it("Letter density concerns polish characters", () => {
+    cy.typeText("ęśąćź ĘŚĄĆŹ");
+    cy.densityPositions([
+      "Ę",
+      "2 (20.00%)",
+      "Ś",
+      "2 (20.00%)",
+      "Ą",
+      "2 (20.00%)",
+      "Ć",
+      "2 (20.00%)",
+      "Ź",
+      "2 (20.00%)",
+    ]);
   });
 
   it("Letter density is sorted by number of occurrences (descending). If two letters have the same number of occurrences, first is the one that appeared first in the text", () => {
@@ -303,5 +410,55 @@ describe("Letter density", () => {
     cy.typeText("cccc");
     cy.get(".progression-bar-filled").should("have.length", 2);
     cy.progressBarsFilled(["80%", "20%"]);
+  });
+});
+
+describe("Letter density - show more/less", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("By default, only top 5 letters are shown. If there are more than 5 letters, button 'Show more appears", () => {
+    cy.typeText("aabbccddee");
+    cy.shouldBeDensities(5);
+    getElement("show-more").should("not.be.visible");
+    getElement("show-less").should("not.be.visible");
+    cy.typeText("f");
+    getElement("show-more").should("be.visible");
+    getElement("show-less").should("not.be.visible");
+  });
+
+  it("Clicking button 'Show more' shows all letters and changes the button to 'Show less'", () => {
+    cy.typeText("aabbccddef");
+    getElement("show-more").click();
+    cy.shouldBeDensities(6);
+    getElement("show-more").should("not.be.visible");
+    getElement("show-less").should("be.visible");
+  });
+
+  it("Clicking button 'Show less' shows only top 5 letters and changes the button to 'Show more'", () => {
+    cy.typeText("aabbccddef");
+    getElement("show-more").click();
+    getElement("show-less").click();
+    cy.shouldBeDensities(5);
+    getElement("show-more").should("be.visible");
+    getElement("show-less").should("not.be.visible");
+  });
+
+  it("If number of different letters is decreased to be 5 or less, all letters are shown and button disappears", () => {
+    cy.typeText("aabbccddef");
+    getElement("show-more").should("be.visible");
+    cy.typeText("{backspace}");
+    getElement("show-more").should("not.be.visible");
+    getElement("show-less").should("not.be.visible");
+  });
+
+  it("Show more/less state is remains when text is cleared", () => {
+    cy.typeText("abcdef");
+    getElement("show-more").click();
+    getElement("text-area").clear().type("qwertyz");
+    cy.shouldBeDensities(7);
+    getElement("show-more").should("not.be.visible");
+    getElement("show-less").should("be.visible");
   });
 });

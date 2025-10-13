@@ -1,7 +1,9 @@
 "use strict";
 
-let darkmode = localStorage.getItem("darkmode");
+let colorScheme = localStorage.getItem("colorScheme");
 const modeSwitchBtn = document.querySelector(".mode-switch-btn");
+
+const textArea = document.querySelector(".text-area");
 
 const checkboxSetLimit = document.querySelector("#checkbox-set-limit");
 const checkboxExcludeSpaces = document.querySelector(
@@ -10,7 +12,9 @@ const checkboxExcludeSpaces = document.querySelector(
 const setLimitDiv = document.querySelector(
   ".text-area-details-config-set-limit-div"
 );
-const textArea = document.querySelector(".text-area");
+const charsLimitField = document.querySelector("#character-limit-field");
+const errorMessage = document.querySelector(".error-message");
+const errorMessageContent = document.querySelector(".message-content");
 
 const totalCharsCounter = document.querySelector("#total-chars-counter");
 const totalCharsDescription = document.querySelector(
@@ -47,7 +51,7 @@ const countCharacters = function (text) {
 };
 
 const countWords = function (text) {
-  const regex = /[\p{L}\d*]+/gu;
+  const regex = /[\p{L}\d*_]+/gu;
   const wordCounter = (text.match(regex) || []).length;
   return wordCounter;
 };
@@ -225,28 +229,62 @@ const calculateLetterDensity = function (text) {
   generateLetterDensity(sortedDensity, densityPercentage);
 };
 
+const renderCharsLimitError = function (charsLimit) {
+  textArea.classList.add("text-area-error");
+  console.log(
+    `error, textArea chars: ${textArea.value.length}, limit: ${charsLimit}`
+  );
+  errorMessageContent.textContent = `Limit reached! Your text exceeds ${charsLimit} characters.`;
+};
+
+const removeCharsLimitError = function () {
+  textArea.classList.remove("text-area-error");
+};
+
+const checkTextAreaLimitChars = function () {
+  const chars = countCharacters(textArea.value);
+  const charsLimit = Number(charsLimitField.value);
+  if (charsLimit && chars > charsLimit) {
+    renderCharsLimitError(charsLimit);
+  } else {
+    removeCharsLimitError();
+  }
+};
+
 const enableDarkMode = function () {
   document.body.classList.add("darkmode");
-  localStorage.setItem("darkmode", "active");
+  localStorage.setItem("colorScheme", "dark");
 };
 
 const disableDarkMode = function () {
   document.body.classList.remove("darkmode");
-  localStorage.setItem("darkmode", null);
+  localStorage.setItem("colorScheme", "light");
 };
 
+const setModeOnAgentScheme = function () {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    document.body.classList.add("darkmode");
+  } else {
+    document.body.classList.remove("darkmode");
+  }
+};
+
+window.addEventListener("load", function () {
+  colorScheme = localStorage.getItem("colorScheme");
+  if (!colorScheme) {
+    setModeOnAgentScheme(window);
+  } else {
+    colorScheme === "dark" ? enableDarkMode() : disableDarkMode();
+  }
+});
+
 modeSwitchBtn.addEventListener("click", function () {
-  darkmode = localStorage.getItem("darkmode");
-  darkmode !== "active" ? enableDarkMode() : disableDarkMode();
-});
-
-checkboxSetLimit.addEventListener("change", function () {
-  setLimitDiv.classList.toggle("set-limit-checked");
-});
-
-checkboxExcludeSpaces.addEventListener("change", function () {
-  printValue(totalCharsCounter, countCharacters(textArea.value));
-  updateTotalCharsDescription();
+  document.body.classList.contains("darkmode")
+    ? disableDarkMode()
+    : enableDarkMode();
 });
 
 textArea.addEventListener("input", function () {
@@ -255,7 +293,28 @@ textArea.addEventListener("input", function () {
   const countedSentences = countSentences(textArea.value);
   letterDensityArea.classList.toggle("empty-density", !textArea.value);
   calculateLetterDensity(textArea.value);
+  checkTextAreaLimitChars();
   printCountedValues(countedChars, countedWords, countedSentences);
+});
+
+checkboxExcludeSpaces.addEventListener("change", function () {
+  printValue(totalCharsCounter, countCharacters(textArea.value));
+  updateTotalCharsDescription();
+  checkTextAreaLimitChars();
+});
+
+checkboxSetLimit.addEventListener("change", function () {
+  setLimitDiv.classList.toggle("set-limit-checked");
+  if (!setLimitDiv.classList.contains("set-limit-checked")) {
+    charsLimitField.value = null;
+    removeCharsLimitError();
+  }
+});
+
+charsLimitField.addEventListener("input", function () {
+  charsLimitField.value = charsLimitField.value.replace(/\D/g, "");
+
+  checkTextAreaLimitChars(charsLimitField.value);
 });
 
 moreLessSwitch.addEventListener("click", function (event) {

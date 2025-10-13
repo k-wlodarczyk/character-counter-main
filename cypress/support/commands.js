@@ -17,6 +17,12 @@ Cypress.Commands.add("checkSentencesCounter", (text, counterValue) => {
   cy.get(`[data-cy="sentences-counter"]`).should("have.text", counterValue);
 });
 
+Cypress.Commands.add("shouldBeErrorMessageWithChars", (chars) => {
+  cy.get('[data-cy="message-content"]')
+    .should("be.visible")
+    .and("have.text", `Limit reached! Your text exceeds ${chars} characters.`);
+});
+
 Cypress.Commands.add("densityPosition", (position, text) => {
   cy.get(".density-calculation").eq(position).should("have.text", text);
 });
@@ -33,4 +39,8 @@ Cypress.Commands.add("progressBarsFilled", (values) => {
       .should("have.attr", "style")
       .and("contains", `width: ${values[index]}`);
   });
+});
+
+Cypress.Commands.add("shouldBeDensities", (value) => {
+  cy.get(".generated-letter-density-object").should("have.length", value);
 });

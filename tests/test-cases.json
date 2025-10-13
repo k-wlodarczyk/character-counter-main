@@ -47,6 +47,15 @@
   },
   {
     "area": "Total characters - exclude spaces unchecked",
+    "name": "Polish characters are counted",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"ąćęłńóśźżĄĆĘŁŃÓŚŹŻ\""
+    ],
+    "expected": "After typing text, Total characters counter shows 18. Polish characters are counted."
+  },
+  {
+    "area": "Total characters - exclude spaces unchecked",
     "name": "Pasting text updates the counter",
     "steps": [
       "Step 1: Click inside the input text area",
@@ -299,6 +308,117 @@
     "expected": "After typing text, Sentence count shows 02.<br />Sentences: '12345',&nbsp;&nbsp; '_' &nbsp;&nbsp; 'Ąć1#'."
   },
   {
+    "area": "Character limit",
+    "name": "After checking checkbox \"Set character limit\", additional input to set the limit appears",
+    "steps": ["Step 1: Check the checkbox 'Set character limit'"],
+    "expected": "After checking the checkbox, an additional input field appears to set the character limit. The input field has no value and has placeholder '0'."
+  },
+  {
+    "area": "Character limit",
+    "name": "Character limit input accepts only numbers",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Click inside the character limit input",
+      "Step 3: Type text \"-10.,5 abc\" "
+    ],
+    "expected": "Other characters than numbers are ignored. Limit field shows value 105."
+  },
+  {
+    "area": "Character limit",
+    "name": "Character limit input is cleared and disappears when unchecking the checkbox",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Click inside the character limit input",
+      "Step 3: Set limit value: 10",
+      "Step 4: Uncheck the checkbox 'Set character limit'",
+      "Step 5: Check the checkbox again"
+    ],
+    "expected": "After step 3: Character limit input shows value 10. After step 4: Character limit input disappears and is cleared. After step 5: Character limit input appears with no value."
+  },
+  {
+    "area": "Character limit",
+    "name": "Exceeding the character limit shows error state in text area and error message",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Set limit value: 5",
+      "Step 3: Click inside the input text area",
+      "Step 4: Type text \"abcdef\""
+    ],
+    "expected": "After step 4, input text area border changes to orange and error message 'Limit reached! Your text exceeds 5 characters.' appears below the input text area."
+  },
+  {
+    "area": "Character limit",
+    "name": "Error state is removed when text is decreased to be within the limit",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Set limit value: 5",
+      "Step 3: Click inside the input text area",
+      "Step 4: Type text \"abcdef\"",
+      "Step 5: Delete last character to make it \"abcde\""
+    ],
+    "expected": "After step 4, input text area border changes to orange and error message 'Limit reached! Your text exceeds 5 characters.' appears below the input text area. After step 5: Input text area border changes back to normal and error message disappears."
+  },
+  {
+    "area": "Character limit",
+    "name": "Unchecking the checkbox removes the limit and error state",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Set limit value: 5",
+      "Step 3: Click inside the input text area",
+      "Step 4: Type text \"abcdef\"",
+      "Step 5: Uncheck the checkbox 'Set character limit'"
+    ],
+    "expected": "After step 4, input text area border changes to orange and error message 'Limit reached! Your text exceeds 5 characters.' appears below the input text area. After step 5: Input text area border changes back to normal and error message disappears."
+  },
+  {
+    "area": "Character limit",
+    "name": "Change limit value updates the error state",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Set limit value: 5",
+      "Step 3: Click inside the input text area",
+      "Step 4: Type text \"abcdef\"",
+      "Step 5: Change limit value to 6",
+      "Step 6: Change limit value to 4"
+    ],
+    "expected": "After step 4, input text area border changes to orange and error message 'Limit reached! Your text exceeds 5 characters.' appears below the input text area. After step 5: Input text area border changes back to normal and error message disappears. After step 6: Input text area border changes to orange again and error message 'Limit reached! Your text exceeds 4 characters.' appears below the input text area."
+  },
+  {
+    "area": "Character limit",
+    "name": "Character limit checks limit when text is already typed",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abcdef\"",
+      "Step 3: Check the checkbox 'Set character limit'",
+      "Step 4: Set limit value: 5"
+    ],
+    "expected": "After step 2: No error state. After step 4: Input text area border changes to orange and error message 'Limit reached! Your text exceeds 5 characters' appears below the input text area."
+  },
+  {
+    "area": "Character limit",
+    "name": "Character limit concerns \"Exclude spaces\" checkbox state",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Set limit value: 6",
+      "Step 3: Click inside the input text area",
+      "Step 4: Type text \"abc def\"",
+      "Step 5: Check the checkbox 'Exclude spaces'",
+      "Step 6: Uncheck the checkbox 'Exclude spaces'"
+    ],
+    "expected": "After step 4: Input text area border changes to orange and error message 'Limit reached! Your text exceeds 6 characters.' appears below the input text area. After step 5: Input text area border changes back to normal and error message disappears. After step 6: Input text area border changes to orange again and error message 'Limit reached! Your text exceeds 6 characters.' appears below the input text area."
+  },
+  {
+    "area": "Character limit",
+    "name": "Limit input must be filled and have value than zero",
+    "steps": [
+      "Step 1: Check the checkbox 'Set character limit'",
+      "Step 2: Set limit value: 0",
+      "Step 3: Type text in text area: \"abc\"",
+      "Step 4: Clear value in limit input"
+    ],
+    "expected": "Error state in text area is not activated and error message does not appear. Limit input must be filled and have value greater than zero."
+  },
+  {
     "area": "Letter density",
     "name": "Letter density appears after typing letters",
     "steps": [
@@ -325,7 +445,7 @@
       "Step 1: Click inside the input text area",
       "Step 2: Type text \"aabb\""
     ],
-    "expected": "After typing text, Letter density shows:<br />A: 2 (50,00%)<br />B: 2 (50.00%)<br />On the left side of a progress bar is the letter, on the right side is number of occurrences and percentage of density in whole text."
+    "expected": "After typing text, Letter density shows:<br />A: 2 (50.00%)<br />B: 2 (50.00%)<br />On the left side of a progress bar is the letter, on the right side is number of occurrences and percentage of density in whole text."
   },
   {
     "area": "Letter density",
@@ -334,7 +454,7 @@
       "Step 1: Click inside the input text area",
       "Step 2: Type text \"abaA 1_23 !@#.\""
     ],
-    "expected": "Letter density counts only letters (case insensitive). After typing text, Letter density shows:<br />A: 3 (75,00%)<br />B: 1 (25.00%)"
+    "expected": "Letter density counts only letters (case insensitive). After typing text, Letter density shows:<br />A: 3 (75.00%)<br />B: 1 (25.00%)"
   },
   {
     "area": "Letter density",
@@ -347,6 +467,15 @@
   },
   {
     "area": "Letter density",
+    "name": "Letter density concerns polish characters",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"ęśąćź ĘŚĄĆŹ\""
+    ],
+    "expected": "After typing text, Letter density shows:<br />Ę: 2 (20.00%)<br />Ś: 2 (20.00%)<br />Ą: 2 (20.00%)<br />Ć: 2 (20.00%)<br />Ź: 2 (20.00%)"
+  },
+  {
+    "area": "Letter density",
     "name": "Letter density is sorted by number of occurrences (descending). If two letters have the same number of occurrences, first is the one that appeared first in the text",
     "steps": [
       "Step 1: Click inside the input text area",
@@ -355,7 +484,7 @@
       "Step 4: Add letter: \"C\" to the text",
       "Step 5: Add letters: \"CA\" to the text"
     ],
-    "expected": "After step 2, Letter density shows:<br />C: 2 (40.00%)<br />A: 2 (40.00%)<br />B: 1 (20.00%)<br />After step 3, letter density shows:<br />A: 3 (50,00%)<br />C: 2 (33.33%)<br />B: 1 (16.67%)<br />After step 4, letter density shows:<br />C: 3 (42.86%)<br />A: 3 (42.86%)<br />B: 1 (14.29%). <br />Step 5 does not change the order:<br />C: 4 (44.44%)<br />A: 4 (44.44%)<br />B: 1 (11.11%)"
+    "expected": "After step 2, Letter density shows:<br />C: 2 (40.00%)<br />A: 2 (40.00%)<br />B: 1 (20.00%)<br />After step 3, letter density shows:<br />A: 3 (50.00%)<br />C: 2 (33.33%)<br />B: 1 (16.67%)<br />After step 4, letter density shows:<br />C: 3 (42.86%)<br />A: 3 (42.86%)<br />B: 1 (14.29%). <br />Step 5 does not change the order:<br />C: 4 (44.44%)<br />A: 4 (44.44%)<br />B: 1 (11.11%)"
   },
   {
     "area": "Letter density",
@@ -387,5 +516,97 @@
       "Step 5: Add some more letters \"c\" to the text (about 5-10 more)"
     ],
     "expected": "After step 2 progress bars for A and B have the same width (50%). After step 3 progress bar for A has 100% width. After step 4 progress bar for C is longer than progress bar for A. In step 5 progress bar width for C increases with more letters C added. Progress bar is filled with the same color as total characters block background."
+  },
+  {
+    "area": "Letter density - show more/less",
+    "name": "By default, only top 5 letters are shown. If there are more than 5 letters, button 'Show more' appears",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aabbccdde\"",
+      "Step 3: Add \"f\" to make it 6 different letters"
+    ],
+    "expected": "After step 2 there are 5 different letters, all are shown and button 'Show more' does not appear. After step 3 there are 6 different letters, only top 5 are shown and button 'Show more' appears below the letter density."
+  },
+  {
+    "area": "Letter density - show more/less",
+    "name": "Clicking button 'Show more' shows all letters and changes the button to 'Show less'",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aabbccdde\"",
+      "Step 3: Add \"f\" to make it 6 different letters",
+      "Step 4: Click the button 'Show more'"
+    ],
+    "expected": "After step 3 there are 6 different letters, only top 5 are shown and button 'Show more' appears below the letter density. After clicking the button in step 4, all letters are shown and button text changes to 'Show less'."
+  },
+  {
+    "area": "Letter density - show more/less",
+    "name": "Clicking button 'Show less' shows only top 5 letters and changes the button to 'Show more'",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aabbccdde\"",
+      "Step 3: Add \"f\" to make it 6 different letters",
+      "Step 4: Click the button 'Show more'",
+      "Step 5: Click the button 'Show less'"
+    ],
+    "expected": "After step 3 there are 6 different letters, only top 5 are shown and button 'Show more' appears below the letter density. After clicking the button in step 4, all letters are shown and button text changes to 'Show less'. After clicking the button in step 5, only top 5 letters are shown again and button text changes back to 'Show more'."
+  },
+  {
+    "area": "Letter density - show more/less",
+    "name": "If number of different letters is decreased to be 5 or less, all letters are shown and button disappears",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"aabbccdde\"",
+      "Step 3: Add \"f\" to make it 6 different letters",
+      "Step 4: Delete letter \"f\" to make it back to 5 different letters"
+    ],
+    "expected": "After step 3 there are 6 different letters, only top 5 are shown and button 'Show more' appears below the letter density. After step 4, all letters are shown and button disappears."
+  },
+  {
+    "area": "Letter density - show more/less",
+    "name": "Show more/less state is remains when text is cleared",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abcdef\"",
+      "Step 3: Click the button 'Show more'",
+      "Step 4: Clear whole text",
+      "Step 5: Type text \"qwertyz\""
+    ],
+    "expected": "Show more/less state is not reset until user clicks the more/less button. After step 2, top 5 letters are shown and button 'Show more' appears. After step 3, all letters are shown and button text changes to 'Show less'. After step 4, Letter density shows message 'No characters found. Start typing to see letter density.' and button disappears. After step 5 all letters are shown and button 'Show less' appears. More/less state is only changed when state button is clicked."
+  },
+  {
+    "area": "Color scheme",
+    "name": "Color scheme follows agent's preferred color scheme on page load",
+    "steps": [
+      "Step 1: Make sure that local storage has no key 'colorScheme' (clear local storage if needed)",
+      "Step 2: Set agent's preferred color scheme to dark",
+      "Step 3: Open the application",
+      "Step 4: Set agent's preferred color scheme to light",
+      "Step 5: Reload the application"
+    ],
+    "expected": "After step 3: Application color scheme is dark. Background is dark, text is light. On the right top corner, icon of sun is shown in the color scheme toggle button. After step 5: Application color scheme is light. Background is light, text is dark. On the right top corner, icon of moon is shown in the color scheme toggle button."
+  },
+  {
+    "area": "Color scheme",
+    "name": "Color scheme toggle button switches between light and dark mode and saves preference to local storage",
+    "steps": [
+      "Step 1: Make sure that local storage has no key 'colorScheme' (clear local storage if needed)",
+      "Step 2: Set agent's preferred color scheme to dark",
+      "Step 3: Open the application",
+      "Step 4: Click the color scheme toggle button (sun icon) on the right top corner",
+      "Step 5: Reload the application"
+    ],
+    "expected": "After step 3: Color scheme is dark. After step 4: Color scheme changes to light. After step 5: Color scheme remains light. Local storage has key 'colorScheme' with value 'light'. Local storage has higher priority than agent's preferred color scheme."
+  },
+  {
+    "area": "Color scheme",
+    "name": "Color scheme toggle button switches between dark and light mode and saves preference to local storage",
+    "steps": [
+      "Step 1: Make sure that local storage has no key 'colorScheme' (clear local storage if needed)",
+      "Step 2: Set agent's preferred color scheme to light",
+      "Step 3: Open the application",
+      "Step 4: Click the color scheme toggle button (moon icon) on the right top corner",
+      "Step 5: Click the color scheme toggle button (sun icon) on the right top corner"
+    ],
+    "expected": "After step 3: Color scheme is light. After step 4: Color scheme changes to dark. Local storage has key 'colorScheme' with value 'dark'. After step 5: Color scheme changes to light. Local storage has key 'colorScheme' with value 'light'."
   }
 ]

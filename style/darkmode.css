@@ -32,3 +32,11 @@
 .darkmode .nav-logo-img:last-child {
   display: inline;
 }
+
+.darkmode .text-area-error {
+  border-color: var(--orange-500);
+}
+
+.darkmode .message-content {
+  color: var(--orange-500);
+}

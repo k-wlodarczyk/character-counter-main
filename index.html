@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Advanced Character Counter Tool. Count words, sentences, and letters with Unicode support. Features E2E testing using Cypress, custom commands, and full manual QA documentation."
+    />
 
     <link
       rel="icon"
@@ -75,7 +79,9 @@
         ></textarea>
         <div class="error-message"
           ><span class="error-icon"
-            ><img src="design/assets/images/icon-info.svg" alt="" /></span
+            ><img
+              src="design/assets/images/icon-info.svg"
+              alt="error icon displayed when text exceeds characters limit" /></span
           ><p class="message-content" data-cy="message-content"></p
         ></div>
         <section class="text-area-details-config">
@@ -133,6 +139,7 @@
           <img
             src="./design/assets/images/pattern-character-count.svg"
             class="counting-block-pattern"
+            alt="Figure used as a background for total characters block"
           />
         </div>
         <div class="data-counting-block word-count-block">
@@ -143,6 +150,7 @@
           <img
             src="./design/assets/images/pattern-word-count.svg"
             class="counting-block-pattern"
+            alt="Figure used as a background for words block"
           />
         </div>
         <div class="data-counting-block sentence-count-block">
@@ -156,6 +164,7 @@
           <img
             src="./design/assets/images/pattern-sentence-count.svg"
             class="counting-block-pattern"
+            alt="Figure used as a background for sentences block"
           />
         </div>
       </section>

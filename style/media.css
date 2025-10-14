@@ -1,0 +1,147 @@
+@media (max-width: 1030px) {
+  html {
+    font-size: 55%;
+  }
+
+  .wrapper {
+    max-width: 90rem;
+  }
+
+  .counting-block-pattern {
+    width: 14rem;
+  }
+
+  .generated-letter-density-object {
+    text-align: center;
+    grid-template-columns: 1fr 10fr 2fr;
+  }
+}
+
+@media (max-width: 830px) {
+  .wrapper {
+    max-width: 90vw;
+  }
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 750px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+@media (max-width: 680px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media (max-width: 615px) {
+  html {
+    font-size: 37.5%;
+  }
+}
+
+@media (max-width: 566px) {
+  html {
+    font-size: 35%;
+  }
+
+  .counting-block-pattern {
+    /* width: 12rem; */
+    right: -17%;
+  }
+}
+
+@media (max-width: 534px) {
+  html {
+    font-size: 30%;
+  }
+}
+
+@media (max-width: 444px) {
+  html {
+    font-size: 27%;
+  }
+}
+
+@media (max-width: 515px) {
+  html {
+    font-size: 25%;
+  }
+
+  .nav-logo-img {
+    height: 6rem;
+  }
+
+  .main-heading {
+    max-width: 59rem;
+  }
+
+  .text-area {
+    height: 29rem;
+  }
+
+  .data-counting-blocks {
+    grid-template-columns: 1fr;
+  }
+
+  .data-counting-block {
+    padding-left: var(--spacing-400);
+  }
+
+  .counting-block-pattern {
+    right: -2%;
+    width: 15rem;
+  }
+
+  .text-area-details-config {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-400);
+  }
+
+  .character-limit-field {
+    width: 10rem;
+  }
+
+  .text-area-details-config,
+  .message-content,
+  .switch-btns {
+    font-size: var(--text-preset-2-size);
+    line-height: var(--text-preset-2-line-height);
+    letter-spacing: var(--text-preset-4-letter-spacing);
+  }
+
+  .approximate-reading-paragraph {
+    margin: 0;
+  }
+
+  .empty-density-paragraph,
+  .letter,
+  .calculated-density {
+    font-size: var(--text-preset-3-size);
+    line-height: var(--text-preset-3-line-height);
+    letter-spacing: var(--text-preset-4-letter-spacing);
+  }
+
+  .text-area-details-config-set-limit-div {
+    gap: var(--spacing-200);
+  }
+
+  .letter-density-section {
+    margin-top: var(--spacing-600);
+  }
+
+  .more-less-switch {
+    margin-top: var(--spacing-400);
+  }
+}
+
+@media (max-width: 315px) {
+  .generated-letter-density-object {
+    grid-template-columns: 1fr 6fr 2fr;
+  }
+}

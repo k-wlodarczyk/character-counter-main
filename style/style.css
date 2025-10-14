@@ -450,11 +450,13 @@ input[type="checkbox"] {
 .media-links {
   margin: var(--spacing-600);
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .media-link:link,
 .media-link:visited {
+  min-width: 20rem;
+  text-align: center;
   background-color: var(--purple-400);
   padding: var(--spacing-150) var(--spacing-400);
   text-decoration: none;

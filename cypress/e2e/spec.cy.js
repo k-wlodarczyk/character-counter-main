@@ -18,8 +18,8 @@ describe("Default values", () => {
     getElement("total-chars-counter").should("have.text", "00");
     getElement("words-counter").should("have.text", "00");
     getElement("sentences-counter").should("have.text", "00");
-    getElement("checkbox-exclude-spaces").should("be.unchecked");
-    getElement("checkbox-set-limit").should("be.unchecked");
+    getElement("checkbox-exclude-spaces").should("not.be.checked");
+    getElement("checkbox-set-limit").should("not.be.checked");
     getElement("chars-limit-field").should("not.be.visible");
     getElement("empty-density").should("be.visible");
   });

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../design/assets/images/bg-light-theme.png"
+    />
+
+    <title>Frontend Mentor | Character counter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/darkmode.css" />
+    <link rel="stylesheet" href="docs-style.css" />
+    <link rel="stylesheet" href="../style/media.css" />
+  </head>
+  <body>
+    <section class="main-page-btn">
+      <a href="../index.html" class="media-link">Main page</a>
+    </section>
+    <div class="wrapper">
+      <h1 class="main-heading tests-heading docs-heading"
+        >Character Counter - docs</h1
+      >
+      <section class="counting-blocks">
+        <div class="counting-block counting-chars">
+          <h2 class="secondary-heading counting-heading">Characters</h2>
+          <div class="counting-description">
+            <p
+              >As characters are counted all kinds of signs - both visible for
+              users (e.g. letters or numbers) and not visible (e.g. new lines or
+              tabs)</p
+            >
+            <p
+              >If option "Exclude spaces" is checked, spaces are ignored in
+              characters counting.</p
+            >
+            <p
+              >Examples of characters (separated by semicolon): <br />a ; 3 ;
+              enter ; space ; #</p
+            >
+          </div>
+        </div>
+        <div class="counting-block counting-words">
+          <h2 class="secondary-heading counting-heading">Words</h2>
+          <div class="counting-description">
+            <p
+              >As words are counted Letters, numbers, asterisks, underscores and
+              polish characters. One character is enough to make a new word. Any
+              other characters than indicated before is a separator for words.
+            </p>
+            <p>Examples of words:</p>
+            <p>a b => 2 words</p>
+            <p>word1-word2 => 2 words</p>
+            <p>wo*d => 1 word</p>
+            <p>* _ => 2 words</p>
+            <p>@#%^ => 0 words</p>
+          </div>
+        </div>
+        <div class="counting-block counting-sentences">
+          <h2 class="secondary-heading counting-heading">Sentences</h2>
+          <div class="counting-description">
+            <p
+              >As characters are counted sets with at least one word. Sentences
+              are separated by characters: . ! ? ...</p
+            >
+            <p
+              >Sentence is counted if there is at least one word started after
+              one separator (or beginning of text) and is finished before
+              another separator (or end of text)</p
+            >
+            <p>Examples of sentences:</p>
+            <p>Sentece 1. Sentence 2. => 2 sentences</p>
+            <p>sentence 1? sentence 2! sentence3...sentence 4 => 4 sentences</p>
+            <p>_. sentence2 #@%. => 2 sentences</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- <script src="generate-test-cases.js"></script>
+    <script src="../js/script.js"></script> -->
+  </body>
+</html>

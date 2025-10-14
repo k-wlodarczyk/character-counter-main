@@ -419,6 +419,19 @@
     "expected": "Error state in text area is not activated and error message does not appear. Limit input must be filled and have value greater than zero."
   },
   {
+    "area": "Reading time",
+    "name": "Approximate reading time is 300 words per minute",
+    "steps": [
+      "Step 1: Click inside the input text area",
+      "Step 2: Type text \"abc\"",
+      "Step 3: Clear text and type or paste text with 300 words",
+      "Step 4: Add one more word to make it 301 words",
+      "Step 5: Add words to make it 600 words",
+      "Step 6: Add words to make it 601 words"
+    ],
+    "expected": "If number of words is less than 300, reading time shows '>1 minute. If number of words is equal to 300 reading time shows '1 minute'. If number of words is between 301 and 599, reading time shows '>2 minutes'. If number of words is equal to 600, reading time shows '2 minutes'. If number of words is between 601 and 899, reading time shows '>3 minutes' and so on."
+  },
+  {
     "area": "Letter density",
     "name": "Letter density appears after typing letters",
     "steps": [

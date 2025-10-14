@@ -1,6 +1,18 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.main-page-btn {
+  margin: var(--spacing-200);
+  display: flex;
+  justify-content: space-around;
+}
+
 .header-links {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-150);
   list-style: none;
 }
 

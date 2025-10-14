@@ -29,8 +29,13 @@ const emptyDensityParagraph = document.querySelector(
   ".empty-density-paragraph"
 );
 
-const MAX_DENSITY_OBJECTS_WITHOUT_SWITCH = 5;
 const moreLessSwitch = document.querySelector(".more-less-switch");
+const approxReadingTIme = document.querySelector(
+  ".approximate-reading-paragraph"
+);
+
+const MAX_DENSITY_OBJECTS_WITHOUT_SWITCH = 5;
+const READ_WORDS_PER_MINUTE = 300;
 
 const printCountedValues = function (chars, words, sentences) {
   printValue(totalCharsCounter, chars);
@@ -251,6 +256,17 @@ const checkTextAreaLimitChars = function () {
   }
 };
 
+const calculateReadingTime = function (words) {
+  const readingTime = words / READ_WORDS_PER_MINUTE;
+  const approxTime = Number.isInteger(readingTime)
+    ? readingTime
+    : Math.ceil(readingTime);
+
+  approxReadingTIme.textContent = `Approx. reading time: ${
+    approxTime === readingTime ? "" : ">"
+  }${approxTime} ${approxTime <= 1 ? "minute" : "minutes"}`;
+};
+
 const enableDarkMode = function () {
   document.body.classList.add("darkmode");
   localStorage.setItem("colorScheme", "dark");
@@ -294,6 +310,7 @@ textArea.addEventListener("input", function () {
   letterDensityArea.classList.toggle("empty-density", !textArea.value);
   calculateLetterDensity(textArea.value);
   checkTextAreaLimitChars();
+  calculateReadingTime(countedWords);
   printCountedValues(countedChars, countedWords, countedSentences);
 });
 

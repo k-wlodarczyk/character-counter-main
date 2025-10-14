@@ -16,12 +16,18 @@ describe("Default values", () => {
   it("Default values", () => {
     getElement("text-area").should("be.empty");
     getElement("total-chars-counter").should("have.text", "00");
+    getElement("words-counter").should("have.text", "00");
+    getElement("sentences-counter").should("have.text", "00");
+    getElement("checkbox-exclude-spaces").should("be.unchecked");
+    getElement("checkbox-set-limit").should("be.unchecked");
+    getElement("chars-limit-field").should("not.be.visible");
+    getElement("empty-density").should("be.visible");
   });
 });
 
 describe("Total characters - exclude spaces unchecked", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
   });
 
   it("Total characters are updating on typing text", () => {
@@ -63,7 +69,7 @@ describe("Total characters - exclude spaces unchecked", () => {
 
 describe("Total characters - exclude spaces checked", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
     getElement("checkbox-exclude-spaces").check();
   });
 
@@ -98,7 +104,7 @@ describe("Total characters - exclude spaces checked", () => {
 
 describe("Word count", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
   });
 
   it("Word count is updating on typing and deleting text", () => {
@@ -146,7 +152,7 @@ describe("Word count", () => {
 
 describe("Sentence count", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
   });
 
   it("Sentence count is updating on typing and deleting text", () => {
@@ -198,7 +204,7 @@ describe("Sentence count", () => {
 
 describe("Character limit", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
   });
 
   it("After checking checkbox 'Set character limit', additional input to set the limit appears", () => {
@@ -285,7 +291,7 @@ describe("Character limit", () => {
 
 describe("Letter density", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
   });
 
   it("Letter density appears after typing letters", () => {
@@ -415,7 +421,7 @@ describe("Letter density", () => {
 
 describe("Letter density - show more/less", () => {
   beforeEach(() => {
-    cy.visit("/");
+    homePage();
   });
 
   it("By default, only top 5 letters are shown. If there are more than 5 letters, button 'Show more appears", () => {
